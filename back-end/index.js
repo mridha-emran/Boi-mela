@@ -9,13 +9,16 @@ const dovtenv=require("dotenv");
 
 const PORT = process.env.PORT || 8000
 
-
-
 mongoose.connect(process.env.DB, {useNewUrlParser: true,})
 .then(() => {
     console.log("Connected to MongoDB !");
 });
 
+app.use(express.json());
+
+const books = require("./routes/bookRoute");
+
+app.use("/api", books);
 
 app.listen(PORT, () => {
     console.log(`Connected to Server port : ${PORT}`)
