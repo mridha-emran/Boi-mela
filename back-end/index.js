@@ -17,8 +17,10 @@ mongoose.connect(process.env.DB, {useNewUrlParser: true,})
 app.use(express.json());
 
 const books = require("./routes/bookRoute");
+const user = require("./routes/userRoute")
 
 app.use("/api", books);
+app.use("/api", user);
 
 app.listen(PORT, () => {
     console.log(`Connected to Server port : ${PORT}`)
