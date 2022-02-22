@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const dovtenv=require("dotenv");
+const cookieParser = require("cookie-parser");
 
  dovtenv.config({
      path:"./config.env"
@@ -15,6 +16,7 @@ mongoose.connect(process.env.DB, {useNewUrlParser: true,})
 });
 
 app.use(express.json());
+app.use(cookieParser());
 
 const books = require("./routes/bookRoute");
 const auth = require("./routes/authRoute")

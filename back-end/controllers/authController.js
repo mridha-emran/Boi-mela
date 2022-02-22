@@ -1,4 +1,5 @@
 const User = require("../models/userModel");
+const tokenFanction = require("../utils/tokenFanction");
   const registerUser =async (req,res)=>{
       const { name, email, password } = req.body;
         try{
@@ -7,15 +8,13 @@ const User = require("../models/userModel");
               email,
               password,
       
-          });
-          res.status(201).json({
-              success: true,
-              user  
-                });     
+          });     
+            tokenFanction(user, 201, res)
       }
       catch(err){
           res.status(500).json(err)
       }
+        
   }
 
   const login =async (req,res)=>{
@@ -43,17 +42,26 @@ const User = require("../models/userModel");
                         message: " Invalid credential",
                       });   
               }
-            res.status(200).json({
-                  success: true,
-                  user 
-                  });     
+             tokenFanction(user, 200, res) 
       }
       catch(err){
           res.status(500).json(err)
       }
   }
-
+   const logoutUser =async (_req,res)=>{
+     try {
+         res.clearCookie('token')
+         return res.status(200).json({
+             message: 'Logged Out successful !'
+            })
+        } 
+        catch(err){
+          res.status(500).json(err)
+      }
+        
+    }
  module.exports ={
    registerUser,
-   login
+   login,
+   logoutUser
  }

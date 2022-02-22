@@ -15,7 +15,7 @@ const User = require("../models/userModel");
 
   const getSingleUser =async (req,res)=>{
       try{
-            const user = await User.findById(req.params.id);
+            const user = await User.findById(req.user.id);
              if (!user) {
                 return  res.status(404).json({
                     success: false,
@@ -40,7 +40,7 @@ const User = require("../models/userModel");
         // console.log(newUserData)
         try{   
                              
-            const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
+            const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
                         new: true,
                         runValidators: true,
                         useFindAndModify: false,
@@ -59,7 +59,7 @@ const User = require("../models/userModel");
  const updatePassword =async (req,res)=>{
     //    console.log(req.body.oldPassword)
      try{
-          const user = await User.findById(req.params.id).select("+password");    
+          const user = await User.findById(req.user.id).select("+password");    
           const passwordMatch = await user.comparePassword(req.body.oldPassword);
       
            if (!passwordMatch) {
@@ -89,7 +89,7 @@ const User = require("../models/userModel");
 
  const deleteUser =async (req,res)=>{
       try{
-            const user = await User.findById(req.params.id);
+            const user = await User.findById(req.user.id);
             if (!user) {
                 return  res.status(400).json({
                     success: false,
