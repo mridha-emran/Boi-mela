@@ -21,10 +21,12 @@ app.use(cookieParser());
 const books = require("./routes/bookRoute");
 const auth = require("./routes/authRoute")
 const users = require("./routes/usersRoute")
+const order = require("./routes/orderRoute")
 
 app.use("/api", books);
 app.use("/api", auth);
 app.use("/api", users);
+app.use("/api", order);
 
 app.listen(PORT, () => {
     console.log(`Connected to Server port : ${PORT}`)
