@@ -1,10 +1,19 @@
 
 import './App.css';
+import Header from './component/header/Header';
+import { BrowserRouter as Router } from "react-router-dom";
+import Footer from './component/footer/Footer';
+import MainPage from './utils/MainPage';
+
 
 function App() {
   return (
     <div className="App">
-      <h1>BOI-MELA</h1>
+      <Router>
+        <Header/>
+          <MainPage /> 
+        <Footer />
+      </Router>
     </div>
   );
 }

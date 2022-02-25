@@ -1,0 +1,41 @@
+.bookCard {
+  margin: 2vmax;
+  width: 12vmax;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: rgb(48, 48, 48);
+  transition: all 0.5s;
+  padding-bottom: 0.5vmax;
+}
+
+.bookCard > img {
+  width: 12vmax;
+}
+
+.bookCard > div {
+  margin: 0.5vmax;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.bookCardSpan {
+  font: 300 0.7vmax "Roboto";
+  margin: 0.5vmax;
+}
+
+.bookCard > p {
+  font-size: 1.2vmax;
+}
+
+.bookCard > span {
+  font-size: 1vmax;
+  margin: 0.5vmax;
+  color: toomato;
+}
+
+.bookCard:hover {
+  box-shadow: 0 0 5px rgba(15, 15, 15, 0.26);
+  transform: translateY(-2vmax);
+}

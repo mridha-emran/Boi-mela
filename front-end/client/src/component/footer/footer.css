@@ -1,0 +1,26 @@
+
+.footer {
+  margin-top: 10vmax;
+  padding: 1vmax;
+  background-color: #006064;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+
+.container-footer {
+  width: 100%;
+  text-align: center;
+}
+
+.container-footer > h1 {
+  font-size: 2vmax;
+  font-family: "Roboto";
+  color: #eb4034;
+}
+.container-footer > p {
+  max-width: 60%;
+  margin: 1vmax auto;
+}
+
