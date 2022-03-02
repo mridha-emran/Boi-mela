@@ -1,16 +1,15 @@
 import React from "react";
 import "./footer.css";
-
+import logo from "../../images/sans-bg-logo.png"
 const Footer = () => {
   return (
     <footer className="footer">
       
 
       <div className="container-footer">
-        <h1>বইমেলা</h1>
+         <img src={logo} alt="playstore" />
         <p>সকল ধরনের বাংলা বই পাবেন এখানে</p>
-
-        <p>Copyrights 2021 &copy; MeAbhiSingh</p>
+        <p>Copyrights 2022 &copy; MRIDHA</p>
       </div>
 
       

@@ -1,6 +1,6 @@
 import React from "react";
 import {ReactNavbar} from "overlay-navbar"
-import logo from "../../images/book2-logo.jpg";
+import logo from "../../images/sans-bg-logo.png";
 
 const options = {
   burgerColorHover: "#eb4034",
@@ -12,6 +12,7 @@ const options = {
   link1Size: "1.3vmax",
   link1Color: "rgba(35, 35, 35,0.8)",
   nav1justifyContent: "flex-end",
+  profileIconUrl: "/login",
   profileIconColor: "rgba(35, 35, 35,0.8)",
   searchIconColor: "rgba(35, 35, 35,0.8)",
   cartIconColor: "rgba(35, 35, 35,0.8)",
