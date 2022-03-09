@@ -25,7 +25,7 @@ const Home = () => {
         <>
           <div className="banner">
           </div>
-          <h2 className="heading">Featured Products</h2>
+          <h2 className="heading">Featured books</h2>
           <div className="container">
 
              {books &&

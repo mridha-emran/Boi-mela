@@ -1,11 +1,23 @@
-import React, {useRef, useState } from "react";
+import React, {useRef, useState,useEffect } from "react";
 import "./login.css";
-import { Link } from "react-router-dom";
+import { Link,useNavigate  } from "react-router-dom";
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import FaceIcon from '@mui/icons-material/Face';
+import { useDispatch, useSelector } from "react-redux";
+import {  login, register } from "../../../redux/actions/userAction";
 
 const LoginRegister = () => {
+
+      const dispatch = useDispatch();
+
+        const navigate = useNavigate();
+      const { isAuthenticat } = useSelector(
+        (state) => state.login
+      );
+      const { isAuthenticated } = useSelector(
+        (state) => state.register
+      );
       const [user, setUser] = useState({
         name: "",
         email: "",
@@ -17,9 +29,18 @@ const LoginRegister = () => {
      const registerTab = useRef(null);
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
-
+      
+    useEffect(() => {
+  
+    if (isAuthenticated) {
+      navigate("/user-profil");
+    }
+    if (isAuthenticat) {
+      navigate("/user-profil");
+    }
+  }, [dispatch, isAuthenticated,isAuthenticat]);
     
-
+      
       const switchTabs = (e, tab) => {
     if (tab === "login") {
       switcherTab.current.classList.remove("goToRight");
@@ -35,12 +56,12 @@ const LoginRegister = () => {
   };
    const loginSubmit = (e) => {
     e.preventDefault();
+      dispatch(login(loginEmail, loginPassword));
   };
-
-   const registerSubmit = (e) => {
+  const { name, email, password } = user;
+  const registerSubmit = (e) => {
     e.preventDefault();
-
-
+    dispatch(register(user));
 
   };
 
@@ -49,7 +70,7 @@ const LoginRegister = () => {
       setUser({ ...user, [e.target.name]: e.target.value });
     
   };
-
+//  console.log("user",user)
   return (
   
           <div className="LoginRegisterContainer">
@@ -67,9 +88,10 @@ const LoginRegister = () => {
                   <input
                     type="email"
                     placeholder="Email"
-                    required
+                    name="email"
                     value={loginEmail}
                     onChange={(e) => setLoginEmail(e.target.value)}
+                    required
                   />
                 </div>
                 <div className="loginPassword">
@@ -77,9 +99,10 @@ const LoginRegister = () => {
                   <input
                     type="password"
                     placeholder="Password"
-                    required
-                    value={loginPassword}
-                    onChange={(e) => setLoginPassword(e.target.value)}
+                      name="password"
+                      value={loginPassword}
+                      onChange={(e) => setLoginPassword(e.target.value)}
+                      required
                   />
                 </div>
                 <Link to="/password/forgot">Forget Password ?</Link>
@@ -96,9 +119,10 @@ const LoginRegister = () => {
                   <input
                     type="text"
                     placeholder="Name"
-                    required
                     name="name"
+                    value={name}
                     onChange={registerDataChange}
+                    required
                   />
                 </div>
                 <div className="RegisterEmail">
@@ -106,10 +130,10 @@ const LoginRegister = () => {
                   <input
                     type="email"
                     placeholder="Email"
-                    required
                     name="email"
-            
+                    value={email}
                     onChange={registerDataChange}
+                    required
                   />
                 </div>
                 <div className="RegisterPassword">
@@ -117,9 +141,10 @@ const LoginRegister = () => {
                   <input
                     type="password"
                     placeholder="Password"
-                    required
-                    name="password"          
+                    name="password"
+                    value={password}          
                     onChange={registerDataChange}
+                    required
                   />
                 </div>
 
