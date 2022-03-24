@@ -1,6 +1,5 @@
 
 .footer {
-  margin-top: 5vmax;
   background-color: #006064;
   color: white;
   display: flex;
@@ -19,6 +18,6 @@
 }
 
 .container-footer > img {
-  width: 15vmax;
+  width: 12vmax;
   cursor: pointer;
 }

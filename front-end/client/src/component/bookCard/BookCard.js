@@ -6,7 +6,7 @@ const BookCard = ({book}) => {
   return (
       <div>
         <Link className="bookCard" to={`/book/${book._id}`}>
-            <img src={book.bookImages} alt={book.name} />
+            <img src={book.bookImages[0].url} alt={book.name} />
             <p>{book.name}</p>           
             <span>{`£${book.price}`}</span>
         </Link>

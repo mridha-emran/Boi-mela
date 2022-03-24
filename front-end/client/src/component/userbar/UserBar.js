@@ -3,25 +3,39 @@ import "./userBar.css";
 import { SpeedDial, SpeedDialAction } from "@material-ui/lab";
 import PersonIcon from '@mui/icons-material/Person';
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import ListAltIcon from "@mui/icons-material/ListAlt";
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import LocalMallIcon from '@mui/icons-material/LocalMall';
 import { useNavigate } from "react-router-dom";
 import logo from "../../images/book2-logo.jpg";
 import { logout } from "../../redux/actions/userAction";
 import { useDispatch} from "react-redux";
-const UserBar = () => {
+const UserBar = ({ user }) => {
 
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
     const options = [
-    { icon: <ListAltIcon />, name: "Orders", func: orders },
+    { icon: <LocalMallIcon />, name: "Orders", func: orders },
     { icon: <PersonIcon />, name: "Profile", func: profile },
     { icon: <ExitToAppIcon />, name: "Logout", func: logoutUser },
   ];
+    if (user.role === "admin") {
+    options.unshift({
+      icon: <DashboardIcon />,
+      name: "Dashboard",
+      func: dashboard,
+    });
+  }
+
+  function dashboard() {
+    navigate("/admin");
+  }
+
+
 
   function orders() {
-    navigate("/orders");
+    navigate("/Cart");
   }
   function profile() {
     navigate("/user-profil");
@@ -45,10 +59,11 @@ const UserBar = () => {
         icon={
           <img
             className="speedDialIcon"
-            src={logo}
-            alt="Profile"
+            src={user.userImages.url}
+            alt={user.name}
           />
         }
+       
       >
         {options.map((item) => (
           <SpeedDialAction

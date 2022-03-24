@@ -1,30 +1,57 @@
-import React from "react";
-import {ReactNavbar} from "overlay-navbar"
+
+import React, { useState} from 'react';
+import { NavLink } from "react-router-dom";
 import logo from "../../images/sans-bg-logo.png";
-
-const options = {
-  burgerColorHover: "#eb4034",
-  logo,
-  logoWidth: "20vmax",
-  navColor1: "white",
-  link1Text: "Home",
-  link1Url: "/",
-  link1Size: "1.3vmax",
-  link1Color: "rgba(35, 35, 35,0.8)",
-  nav1justifyContent: "flex-end",
-  profileIconUrl: "/login",
-  profileIconColor: "rgba(35, 35, 35,0.8)",
-  searchIconColor: "rgba(35, 35, 35,0.8)",
-  cartIconColor: "rgba(35, 35, 35,0.8)",
-  profileIconColorHover: "#eb4034",
-  searchIconColorHover: "#eb4034",
-  cartIconColorHover: "#eb4034",
-  cartIconMargin: "1vmax",
-};
-
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
+import PersonIcon from '@mui/icons-material/Person';
+import './hearder.css';
 
 const Header = () => {
-  return <ReactNavbar {...options} />;
+   const [click, setClick] = useState(false);
+
+    const handleClickIcon = () => {
+        setClick(!click);
+    };
+
+  return (
+    <header>
+    <div className="nav_container">
+                <div className="logo">
+                    <NavLink exact to="/" >
+                        <img src={logo} alt="" />
+                    </NavLink>
+                </div>
+
+                <div className="nav_icon" onClick={handleClickIcon}>
+                  {click ?  < MenuIcon /> : <CloseIcon />}
+                </div>
+
+                <ul className={click ? "nav_menu active" : "nav_menu"}>
+
+                        <>
+                            <li className="nav_item">
+                                <NavLink exact to="/"  className="nav_links" onClick={handleClickIcon}>Home</NavLink>
+                            </li>
+                            <li className="nav_item">
+                                <NavLink exact to="/allbook"  className="nav_links" onClick={handleClickIcon}>all books</NavLink>
+                            </li>
+                            <li className="nav_item">
+                                <NavLink exact to="/Cart"  className="nav_links" onClick={handleClickIcon}>cart</NavLink>
+                            </li>
+                            <li className="nav_item">
+                                <NavLink exact to="/contact"  className="nav_links" onClick={handleClickIcon}>contact</NavLink>
+                            </li>
+                            <li className="nav_item">
+                                <NavLink exact to="/login"  className="nav_links" onClick={handleClickIcon}><PersonIcon /></NavLink>
+                            </li>
+                                        
+                        </>
+                    
+                </ul>
+            </div>
+        </header>
+  );
 };
 
 export default Header;

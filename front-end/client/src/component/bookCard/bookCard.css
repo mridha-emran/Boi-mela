@@ -26,13 +26,13 @@
 }
 
 .bookCard > p {
-  font-size: 1.2vmax;
+  font-size: 1vmax;
 }
 
 .bookCard > span {
   font-size: 1vmax;
   margin: 0.5vmax;
-  color: toomato;
+  color: tomato;
 }
 
 .bookCard:hover {

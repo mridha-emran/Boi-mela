@@ -3,3 +3,8 @@ export const ALL_BOOK_FAIL = "ALL_BOOK_FAIL";
 
 export const SINGLE_BOOK_SUCCESS = "SINGLE_BOOK_SUCCESS";
 export const SINGLE_BOOK_FAIL = "SINGLE_BOOK_FAIL";
+
+
+export const NEW_BOOK_SUCCESS = "NEW_BOOK_SUCCESS";
+export const NEW_BOOK_RESET = "NEW_BOOK_RESET";
+export const NEW_BOOK_FAIL = "NEW_BOOK_FAIL";

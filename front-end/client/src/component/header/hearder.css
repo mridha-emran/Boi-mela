@@ -1,0 +1,136 @@
+header {
+    background-color: #006064;
+    height: 4vmax;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 99;
+    padding: 5px;
+
+}
+.nav_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 1.5vmax;
+    margin-left: 15vh;
+    margin-right: 14vh;
+}
+
+.logo img {
+    margin-top: 1vmax;
+    height: 6vmax;
+}
+.nav_menu {
+    display: flex;
+    list-style: none;
+    text-align: center;
+    margin-top: 1.6vmax;
+}
+.nav_links {
+    color: white;
+    text-decoration: none;
+    font-size: 1vmax;
+    padding: 0.5rem, 1rem;
+    height: 100%;
+    border-bottom: 3px solid transparent;
+}
+.nav_links:hover {
+    text-decoration: none;
+    color: tomato;
+}
+.nav_item {
+    line-height: 4vmax;
+    margin-right: 1rem;
+    text-transform: uppercase;
+    /* font-size: 1.3rem; */
+    font-weight: 600;
+    font-family: Arial, Helvetica, sans-serif; 
+}
+.nav_item:after {
+    content: "";
+    display: block;
+    height: 3px;
+    width: 0;
+    background: transparent;
+    transition: width 0.7s ease, background-color 0.7s ease-in-out;
+}
+.nav_item:hover:after {
+    width: 100%;
+    background-color: tomato ;
+}
+.nav_item .active {
+    color:tomato;
+    padding: 10px 8px;
+}
+.nav_icon {
+    display: none;
+}
+.nav_links > svg
+  {
+      margin-top: 10px;
+    font-size: 2vmax;
+            
+}
+
+@media screen and (max-width: 600px) {
+    
+    header {
+       height: 8vmax;
+    }
+    .nav_container {
+        padding: 8px;
+    }
+    .logo{
+    margin-left: -1vh;
+        }
+    .logo img {
+        width: 15vmax;
+    }
+    .nav_icon {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(-100%, 50%);    
+        cursor: pointer;
+        color: white;
+    }
+    .nav_icon > svg
+        {
+        font-size: 4.6vmax;
+            
+        }
+    .nav_menu {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        top: 6.5vmax;
+        border-top: 1px solid #93a0ac;
+        position: absolute;
+        left: -110%;
+        opacity: 1;
+        transition: all 0.5s ease;
+    }
+    .nav_menu.active {
+        background-color: #006064 ;
+        background:#006064(131, 192, 255, 0.9);
+        left: 0px;
+        padding: 0px;
+        opacity: 1;
+        transition: all 0.5s ease;
+        z-index: 1;
+    }
+    .nav_item .active {
+        color: tomato;
+        border: none;
+    }
+    .nav_links {
+        width: 100%;
+        display: table;
+    }
+    
+}

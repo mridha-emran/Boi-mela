@@ -4,15 +4,15 @@ import { Link,useNavigate } from "react-router-dom";
 import "./profile.css";
 
 const Profile = () => {
-  const { user, isAuthenticated } = useSelector((state) => state.singleUser);
+  const { user,  isAuthenticat } = useSelector((state) => state.login);
      const navigate = useNavigate();
   useEffect(() => {
-      console.log(isAuthenticated)
-    if (isAuthenticated === false ) {
+      console.log( isAuthenticat)
+    if ( isAuthenticat === false ) {
        
       navigate("/login");
     }
-  }, [isAuthenticated]);
+  }, [navigate, isAuthenticat]);
    console.log("pro",user)
   return (
    
@@ -20,6 +20,7 @@ const Profile = () => {
           <div className="profileContainer">
             <div>
               <h1>My Profile</h1>
+               <img src={user.userImages.url} alt={user.name} />
               <Link to="/profile-update">Edit Profile</Link>
             </div>
             <div>
@@ -33,7 +34,6 @@ const Profile = () => {
               </div>
              
               <div>
-                <Link to="/orders">My Orders</Link>
                 <Link to="/password/update">Change Password</Link>
               </div>
             </div>

@@ -1,6 +1,6 @@
 import React, {useRef, useState,useEffect } from "react";
 import "./login.css";
-import { Link,useNavigate  } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import FaceIcon from '@mui/icons-material/Face';
@@ -10,38 +10,36 @@ import {  login, register } from "../../../redux/actions/userAction";
 const LoginRegister = () => {
 
       const dispatch = useDispatch();
+      const navigate = useNavigate();    
+      const { isAuthenticat} = useSelector((state) => state.login);
 
-        const navigate = useNavigate();
-      const { isAuthenticat } = useSelector(
-        (state) => state.login
-      );
-      const { isAuthenticated } = useSelector(
-        (state) => state.register
-      );
       const [user, setUser] = useState({
         name: "",
         email: "",
         password: "",
       });
 
-    const loginTab = useRef(null);
-    const switcherTab = useRef(null);
-     const registerTab = useRef(null);
-    const [loginEmail, setLoginEmail] = useState("");
-    const [loginPassword, setLoginPassword] = useState("");
-      
+      const [userImages, setuserImages] = useState("/Profile.png");
+      const [focused, setFocused] = useState(false);
+      const [loginEmail, setLoginEmail] = useState("");
+      const [loginPassword, setLoginPassword] = useState(""); 
+        
+      const loginTab = useRef(null);
+      const switcherTab = useRef(null);
+      const registerTab = useRef(null);
+
     useEffect(() => {
-  
-    if (isAuthenticated) {
-      navigate("/user-profil");
-    }
-    if (isAuthenticat) {
-      navigate("/user-profil");
-    }
-  }, [dispatch, isAuthenticated,isAuthenticat]);
-    
-      
-      const switchTabs = (e, tab) => {
+
+    if ( isAuthenticat ) {
+
+        navigate("/user-profil");
+      }
+
+  }, [dispatch ,isAuthenticat]);
+
+          
+    const switchTabs = (e, tab) => {
+
     if (tab === "login") {
       switcherTab.current.classList.remove("goToRight");
       registerTab.current.classList.remove("goToForm");
@@ -54,25 +52,44 @@ const LoginRegister = () => {
     }
     
   };
+
    const loginSubmit = (e) => {
-    e.preventDefault();
+      e.preventDefault();
       dispatch(login(loginEmail, loginPassword));
   };
+
   const { name, email, password } = user;
+
   const registerSubmit = (e) => {
-    e.preventDefault();
-    dispatch(register(user));
+      e.preventDefault();
+      const myForm = new FormData();
 
+      myForm.set("name", name);
+      myForm.set("email", email);
+      myForm.set("password", password);
+      myForm.set("userImages", userImages);
+      dispatch(register(myForm));
   };
 
-    const registerDataChange = (e) => {
-   
+  const registerDataChange = (e) => {
+    if (e.target.name === "userImages") {
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          setuserImages(reader.result);
+        }
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    } else {
       setUser({ ...user, [e.target.name]: e.target.value });
-    
+    }
   };
-//  console.log("user",user)
+
+ const handleFocus = (e) => {
+            e.preventDefault() 
+    setFocused(true)};  
+
   return (
-  
           <div className="LoginRegisterContainer">
             <div className="LoginRegisterBox">
               <div>
@@ -139,21 +156,35 @@ const LoginRegister = () => {
                 <div className="RegisterPassword">
                   <LockOpenIcon />
                   <input
+                    className="RegisterPass"
                     type="password"
                     placeholder="Password"
                     name="password"
+                    onBlur={handleFocus}
+                    focused={focused.toString()}
+                    pattern= "^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,20}$" 
                     value={password}          
                     onChange={registerDataChange}
                     required
                   />
+                   <p className='required-massage'>"The password must be between 8 and 20 characters
+                    and include at least one letter, 1 number and 1 special character!",</p>
                 </div>
-
+                <div id="registerImage">
+      
+                  <input
+                    type="file"
+                    className="inputImage"
+                    name="userImages"
+                    accept="image/*"
+                    onChange={registerDataChange}
+                  />
+                </div>
 
                 <input type="submit" value="Register" className="RegisterBtn" />
               </form>
             </div>
-          </div>
-        
+          </div>      
 
   );
 };

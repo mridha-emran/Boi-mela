@@ -1,12 +1,13 @@
 import axios from "axios";
 import{ALL_BOOK_FAIL,ALL_BOOK_SUCCESS,
-SINGLE_BOOK_FAIL,SINGLE_BOOK_SUCCESS,} from '../constants/bookConstants';
+SINGLE_BOOK_FAIL,SINGLE_BOOK_SUCCESS,
+  NEW_BOOK_SUCCESS,NEW_BOOK_FAIL,} from '../constants/bookConstants';
 
 export const getBook =() =>
   async (dispatch) => {
     try {
       const { data } = await axios.get("/api/books");
-        console.log(data)
+        // console.log(data)
       dispatch({
         type: ALL_BOOK_SUCCESS,
         payload: data,
@@ -20,10 +21,10 @@ export const getBook =() =>
   };
 
   export const getSingleBooks = (id) => async (dispatch) => {
-    console.log("my test" ,id)
+    // console.log("my test" ,id)
   try {
     const { data } = await axios.get(`/api/books/${id}`);
-        console.log("ss",data)
+        // console.log("ss",data)
     dispatch({
       type: SINGLE_BOOK_SUCCESS,
       payload: data.book,
@@ -31,6 +32,26 @@ export const getBook =() =>
   } catch (error) {
     dispatch({
       type: SINGLE_BOOK_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const addBook = (productData) => async (dispatch) => {
+  // console.log(productData)
+  try {
+    const { data } = await axios.post(
+      `/api/books/new`,
+      productData,
+    );
+
+    dispatch({
+      type: NEW_BOOK_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: NEW_BOOK_FAIL,
       payload: error.response.data.message,
     });
   }
