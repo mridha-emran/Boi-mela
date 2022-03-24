@@ -37,7 +37,7 @@ const User = require("../models/userModel");
             name: req.body.name,
             email: req.body.email,
         };
-        // console.log(newUserData)
+        console.log(newUserData)
         try{   
                              
             const user = await User.findByIdAndUpdate(req.user.id, newUserData, {

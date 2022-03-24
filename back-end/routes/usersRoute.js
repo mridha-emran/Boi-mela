@@ -4,13 +4,13 @@ const  {
         getAllUsers,getSingleUser,updateUser,updatePassword,deleteUser
 } = require("../controllers/usersController");
 
-const { userAuthenticated} = require("../middleware/auth");
+const { userAuthenticated,isAuthorizeAdmin} = require("../middleware/auth");
 
-router.get("/user",getAllUsers);
-router.get("/user/:id",userAuthenticated,getSingleUser);
-router.put("/user/:id",userAuthenticated,updateUser);
+router.get("/user",userAuthenticated,isAuthorizeAdmin,getAllUsers);
+router.get("/user/details",userAuthenticated,getSingleUser);
+router.put("/user/details",userAuthenticated,updateUser);
 router.put("/user/password/:id",userAuthenticated,updatePassword);
-router.delete("/user/:id",userAuthenticated,deleteUser);
+router.delete("/user/:id",userAuthenticated,isAuthorizeAdmin, deleteUser);
 
 
 

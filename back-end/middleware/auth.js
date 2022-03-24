@@ -22,8 +22,24 @@ const User = require("../models/userModel");
         res.status(500).json(err)
     }
  }
+ 
+ const isAuthorizeAdmin = async (req, res, next) => {
+    try {
+        const user = await User.findById({_id: req.user.id})
+        // console.log(user)
+        if(user.role === "admin") {
+            next()
+        }else{
+             return res.status(400).json({message: "Access denied"})
+        }        
+        
+    } catch (err) {
+        return res.status(500).json({ message: err.message })
+    }
+}
 
  
  module.exports ={
-   userAuthenticated
+   userAuthenticated,
+   isAuthorizeAdmin
  }

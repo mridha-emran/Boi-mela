@@ -12,7 +12,7 @@ const orderSchema = new mongoose.Schema({
     },
     country: {
       type: String,
-      required: true,
+     default: "bangladesh",
     },
     phone: {
       type: Number,
@@ -35,14 +35,22 @@ const orderSchema = new mongoose.Schema({
       },
       image: {
         type: String,
-        required: true,
       },
-      product: {
+      book: {
         type: mongoose.Schema.ObjectId,
         required: true,
       },
     },
   ],
+    paymentInfo: {
+    id: {
+      type:mongoose.Schema.ObjectId,
+      required: true,
+    },
+    status: {
+      type: String,
+    },
+  },
   user: {
     type: mongoose.Schema.ObjectId,
     ref: "User",

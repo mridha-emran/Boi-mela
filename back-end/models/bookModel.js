@@ -5,6 +5,12 @@ const bookSchema = new mongoose.Schema({
     type: String,
      required: true
   },
+  authour:{
+     type: String,
+  },
+  published:{
+     type: Number,
+  },
   description: {
     type: String,
      required: true
@@ -14,14 +20,18 @@ const bookSchema = new mongoose.Schema({
      required: true
   },
   
-  bookImages:{
-        type:Array,
-        default:""
+  bookImages:[{
+      public_id: {
+      type: String,
+  
     },
-  category: {
-    type: String,
-     required: true
-  },
+    url: {
+      type: String,
+
+    },   
+    }],
+
+
   stock: {
     type: Number,
 

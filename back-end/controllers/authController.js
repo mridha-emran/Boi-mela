@@ -1,14 +1,27 @@
 const User = require("../models/userModel");
 const tokenFanction = require("../utils/tokenFanction");
+const cloudinary = require("cloudinary");
+
   const registerUser =async (req,res)=>{
       const { name, email, password } = req.body;
+      // console.log(req.body)
         try{
+           const myCloud = await cloudinary.v2.uploader.upload(req.body.userImages, {
+              folder: "userImages",
+              width: 150,
+              crop: "scale",
+            });
+            console.log("image",myCloud)
           const user = await User.create({
               name,
               email,
               password,
-      
-          });     
+              userImages: {
+              public_id: myCloud.public_id,
+              url: myCloud.secure_url,
+            }
+            });  
+            console.log("user")   
             tokenFanction(user, 201, res)
       }
       catch(err){
@@ -18,6 +31,7 @@ const tokenFanction = require("../utils/tokenFanction");
   }
 
   const login =async (req,res)=>{
+          // console.log(req.body)
         const { email, password } = req.body;
         try{
             if(!email || !password) {
@@ -42,6 +56,7 @@ const tokenFanction = require("../utils/tokenFanction");
                         message: " Invalid credential",
                       });   
               }
+              // console.log(user)
              tokenFanction(user, 200, res) 
       }
       catch(err){
@@ -49,6 +64,7 @@ const tokenFanction = require("../utils/tokenFanction");
       }
   }
    const logoutUser =async (_req,res)=>{
+      console.log("dd")
      try {
          res.clearCookie('token')
          return res.status(200).json({
