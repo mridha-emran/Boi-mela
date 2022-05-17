@@ -3,6 +3,7 @@ import "./login.css";
 import { Link,useNavigate } from "react-router-dom";
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
+import Loader from "../../../component/Loader/Loader";
 import FaceIcon from '@mui/icons-material/Face';
 import { useDispatch, useSelector } from "react-redux";
 import {  login, register } from "../../../redux/actions/userAction";
@@ -11,8 +12,8 @@ const LoginRegister = () => {
 
       const dispatch = useDispatch();
       const navigate = useNavigate();    
-      const { isAuthenticat} = useSelector((state) => state.login);
-
+      const { isAuthenticat, error,loading} = useSelector((state) => state.login);
+         console.log(error)
       const [user, setUser] = useState({
         name: "",
         email: "",
@@ -29,13 +30,15 @@ const LoginRegister = () => {
       const registerTab = useRef(null);
 
     useEffect(() => {
-
+           if (error) {
+        alert( error);
+    
+      }
     if ( isAuthenticat ) {
 
         navigate("/user-profil");
-      }
-
-  }, [dispatch ,isAuthenticat]);
+      } 
+  }, [dispatch ,isAuthenticat,error]);
 
           
     const switchTabs = (e, tab) => {
@@ -53,7 +56,7 @@ const LoginRegister = () => {
     
   };
 
-   const loginSubmit = (e) => {
+   const loginSubmit = (e) => { 
       e.preventDefault();
       dispatch(login(loginEmail, loginPassword));
   };
@@ -90,6 +93,11 @@ const LoginRegister = () => {
     setFocused(true)};  
 
   return (
+          <>
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
           <div className="LoginRegisterContainer">
             <div className="LoginRegisterBox">
               <div>
@@ -99,32 +107,34 @@ const LoginRegister = () => {
                 </div>
                 <button ref={switcherTab}></button>
               </div>
+
               <form className="loginForm" ref={loginTab} onSubmit={loginSubmit}>
                 <div className="loginEmail">
                   <MailOutlineIcon />
-                  <input
-                    type="email"
-                    placeholder="Email"
-                    name="email"
-                    value={loginEmail}
-                    onChange={(e) => setLoginEmail(e.target.value)}
-                    required
-                  />
+                    <input
+                      type="email"
+                      placeholder="Email"
+                      name="email"
+                      value={loginEmail}
+                      onChange={(e) => setLoginEmail(e.target.value)}
+                      required
+                    />
                 </div>
                 <div className="loginPassword">
                   <LockOpenIcon />
-                  <input
-                    type="password"
-                    placeholder="Password"
+                    <input
+                      type="password"
+                      placeholder="Password"
                       name="password"
                       value={loginPassword}
                       onChange={(e) => setLoginPassword(e.target.value)}
                       required
-                  />
+                    />
                 </div>
                 <Link to="/password/forgot">Forget Password ?</Link>
-                <input type="submit" value="Login" className="loginBtn" />
+                  <input type="submit" value="Login" className="loginBtn" />
               </form>
+
               <form
                 className="RegisterForm"
                 ref={registerTab}
@@ -133,59 +143,59 @@ const LoginRegister = () => {
               >
                 <div className="RegisterName">
                   <FaceIcon />
-                  <input
-                    type="text"
-                    placeholder="Name"
-                    name="name"
-                    value={name}
-                    onChange={registerDataChange}
-                    required
-                  />
+                    <input
+                      type="text"
+                      placeholder="Name"
+                      name="name"
+                      value={name}
+                      onChange={registerDataChange}
+                      required
+                    />
                 </div>
                 <div className="RegisterEmail">
                   <MailOutlineIcon />
-                  <input
-                    type="email"
-                    placeholder="Email"
-                    name="email"
-                    value={email}
-                    onChange={registerDataChange}
-                    required
-                  />
+                    <input
+                      type="email"
+                      placeholder="Email"
+                      name="email"
+                      value={email}
+                      onChange={registerDataChange}
+                      required
+                    />
                 </div>
                 <div className="RegisterPassword">
                   <LockOpenIcon />
-                  <input
-                    className="RegisterPass"
-                    type="password"
-                    placeholder="Password"
-                    name="password"
-                    onBlur={handleFocus}
-                    focused={focused.toString()}
-                    pattern= "^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,20}$" 
-                    value={password}          
-                    onChange={registerDataChange}
-                    required
-                  />
+                    <input
+                      className="RegisterPass"
+                      type="password"
+                      placeholder="Password"
+                      name="password"
+                      onBlur={handleFocus}
+                      focused={focused.toString()}
+                      pattern= "^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,20}$" 
+                      value={password}          
+                      onChange={registerDataChange}
+                      required
+                    />
                    <p className='required-massage'>"The password must be between 8 and 20 characters
                     and include at least one letter, 1 number and 1 special character!",</p>
                 </div>
-                <div id="registerImage">
-      
-                  <input
-                    type="file"
-                    className="inputImage"
-                    name="userImages"
-                    accept="image/*"
-                    onChange={registerDataChange}
-                  />
+                <div id="registerImage">     
+                    <input
+                      type="file"
+                      className="inputImage"
+                      name="userImages"
+                      accept="image/*"
+                      onChange={registerDataChange}
+                    />
                 </div>
-
-                <input type="submit" value="Register" className="RegisterBtn" />
+                  <input type="submit" value="Register" className="RegisterBtn" />
               </form>
             </div>
           </div>      
-
+          </>
+        )}
+          </>
   );
 };
 

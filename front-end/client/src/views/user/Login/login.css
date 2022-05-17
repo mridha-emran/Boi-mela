@@ -129,7 +129,7 @@ input:invalid[focused="true"] ~ .required-massage{
 }
 
 .required-massage{
-  font-size: 1--vh;
+  font-size: 1.5vh;
   padding: 3px;
   color: red;
   display: none;
@@ -196,4 +196,7 @@ input:invalid[focused="true"] ~ .required-massage{
     padding: 1.8vmax;
   }
 
+  .required-massage{
+      padding: 40px;
+  }
 }

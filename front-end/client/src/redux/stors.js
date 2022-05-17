@@ -13,7 +13,7 @@ const reducer = combineReducers({
    singleBook:singleBookReducer,
    login:loginReducer,
    register:registerReducer,
-   singleUser:singleUserReducer,
+   
   //  logout:logoutReducer,
    updateProfile:profileUpdateReducer,
    cart:cartReducer,

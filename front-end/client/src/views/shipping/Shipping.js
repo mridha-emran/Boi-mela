@@ -3,6 +3,7 @@ import "./shipping.css";
 import { useSelector, useDispatch } from "react-redux";
 import { saveShippingInfo } from "../../redux/actions/cartAction";
 import { useNavigate } from "react-router-dom";
+
 const Shipping = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const Shipping = () => {
   };
 
   return (
-    <Fragment>
+    <>
   
       <div className="shippingContainer">
         <div className="shippingBox">
@@ -78,7 +79,7 @@ const Shipping = () => {
           </form>
         </div>
       </div>
-    </Fragment>
+    </>
   );
 };
 

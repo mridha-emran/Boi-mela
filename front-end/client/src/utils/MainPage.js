@@ -24,6 +24,7 @@ import UsersList from '../views/admin/userlist/UserList';
 import AllBook from '../views/book/allBook/allBook';
 import UpdateOrder from '../views/admin/orderlist/updateOrder/UpdateOrder';
 import Contact from '../component/contact/Contact';
+import UpdatePassword from '../views/user/updatePassword/UpdatePassword';
 const MainPage = () => {
   const { user,  isAuthenticat } = useSelector((state) => state.login);
      useEffect(() => {
@@ -40,8 +41,9 @@ const MainPage = () => {
                  <Route exact path="/login" element={<LoginRegister />} />
 
 
-                 <Route exact path="/user-profil" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+                  <Route exact path="/user-profil" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
                   <Route exact path="/profile-update" element={<ProtectedRoute><UserUpdate/></ProtectedRoute>} />
+                  <Route exact path="/password/update" element={<ProtectedRoute><UpdatePassword/></ProtectedRoute>} />
                   <Route exact path="/Cart" element={<Cart />} />
                   <Route exact path="/shipping"  element={<ProtectedRoute><Shipping /></ProtectedRoute>} /> 
                   <Route exact path="/order/confirm" element={<ProtectedRoute><ConfirmOrder /></ProtectedRoute>} />
@@ -56,10 +58,7 @@ const MainPage = () => {
                   <Route exact path="/admin/users" element={<AdminProtectedRoute  isAdmin={true}><UsersList /></AdminProtectedRoute>} />
                   <Route exact path="/admin/order/:id" element={<AdminProtectedRoute  isAdmin={true}><UpdateOrder /></AdminProtectedRoute>} />
                 
-          </Routes>
-
-         
-                
+          </Routes>       
         
         </div>
     )

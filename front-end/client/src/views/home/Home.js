@@ -1,12 +1,13 @@
 import React,{  useEffect }  from "react";
 import BookCard from "../../component/bookCard/BookCard";
 import {getBook } from "../../redux/actions/bookAction";
+import Loader from "../../component/Loader/Loader";
 import { useSelector, useDispatch } from "react-redux";
 import Helmet from "react-helmet";
 import "./home.css";
 const Home = () => {
    const dispatch = useDispatch();
-    const {books } = useSelector((state) => state.books);
+    const { loading,books } = useSelector((state) => state.books);
     
   // const book ={
   //   name:"test book",
@@ -21,8 +22,12 @@ const Home = () => {
   }, [dispatch]);
   return (
         <>
+
+         {loading ? (
+        <Loader />
+      ):(<>
            <Helmet>
-           <title> HOME </title>
+           <title> বইমেলা </title>
           </Helmet>
           <div className="banner">
           </div>
@@ -35,6 +40,8 @@ const Home = () => {
                 ))}
                 {/* <BookCard book={book} /> */}
           </div>
+          </>
+          )}
         </>
    
   );

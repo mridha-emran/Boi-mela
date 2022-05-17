@@ -13,12 +13,6 @@ const ConfirmOrder = () => {
     0
   );
 
-//   const shippingCharges = subtotal > 1000 ? 0 : 200;
-
-//   const tax = subtotal * 0.18;
-
-//   const totalPrice = subtotal + tax + shippingCharges;
-
   const address = `${shippingInfo.address}, ${shippingInfo.city}`;
 
   const proceedToPayment = () => {
@@ -76,19 +70,6 @@ const ConfirmOrder = () => {
                  <div className="orderSummaryTotal">
                      <button >Proceed To Payment</button>
                   </div>
-
-
-                     {/* <div className="">
-        
-
-            <div className="">
-              <p>
-                <b>Total:</b>
-              </p>
-              <span>₹{subtotal}</span>
-            </div>
-            <button >Proceed To Payment</button>
-          </div> */}
             </div>
           </div>
         </div>

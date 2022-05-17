@@ -1,15 +1,16 @@
 import axios from "axios";
-import {LOGIN_FAIL,LOGIN_SUCCESS,
-        REGISTER_FAIL,REGISTER_SUCCESS,
-        SINGLE_USER_FAIL,SINGLE_USER_SUCCESS,LOGOUT_SUCCESS,
-        PROFILE_UPDATE_FAIL, PROFILE_UPDATE_SUCCESS,  
+import {LOGIN_FAIL,LOGIN_SUCCESS,LOGIN_REQUEST,
+        REGISTER_FAIL,REGISTER_SUCCESS,REGISTER_USER_REQUEST,
+        SINGLE_USER_FAIL,SINGLE_USER_SUCCESS,SINGLE_USER_REQUEST,
+        LOGOUT_SUCCESS,PROFILE_UPDATE_FAIL, PROFILE_UPDATE_SUCCESS,  
         UPDATE_PASSWORD_SUCCESS,UPDATE_PASSWORD_FAIL,
         ALL_USERS_SUCCESS, ALL_USERS_FAIL,
         DELETE_USER_SUCCESS,DELETE_USER_FAIL,
     } from "../constants/userConstans"
 
 export const login = (email, password) => async (dispatch) => {
-  try {  
+  try { 
+    dispatch({ type: LOGIN_REQUEST }); 
     const config = { headers: { "Content-Type": "application/json" } };
 
     const { data } = await axios.post(
@@ -27,7 +28,7 @@ export const login = (email, password) => async (dispatch) => {
 export const register = (userData) => async (dispatch) => {
     // console.log ("this",userData)
   try {
-   
+    dispatch({ type: REGISTER_USER_REQUEST }); 
     const { data } = await axios.post(`/api/register`, userData);
     dispatch({ type: REGISTER_SUCCESS, payload: data.user });
   } catch (error) {
@@ -39,6 +40,7 @@ export const register = (userData) => async (dispatch) => {
 };
 
 export const singleUser = () => async (dispatch) => {
+  
   try { 
     const { data } = await axios.get(`/api/user/details`);
       // console.log(data)
@@ -72,13 +74,13 @@ export const profileUpdate = (name,email) => async (dispatch) => {
 };
 
 export const updatePassword = (passwords) => async (dispatch) => {
+   console.log("update password")
   try {
-    const config = { headers: { "Content-Type": "application/json" } };
     const { data } = await axios.put(
       `/api/user/password`,
       passwords,
-      config
     );
+       console.log("update password" ,data)
     dispatch({ type: UPDATE_PASSWORD_SUCCESS, payload: data.success });
   } catch (error) {
     dispatch({

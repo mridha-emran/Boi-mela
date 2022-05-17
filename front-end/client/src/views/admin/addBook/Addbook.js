@@ -67,20 +67,6 @@ const AddBook = ({ history }) => {
     });
   };
 
-  //  const createProductImagesChanges = (e) => {
-  //   if (e.target.name === "bookImages") {
-  //     const reader = new FileReader();
-
-  //     reader.onload = () => {
-  //       if (reader.readyState === 2) {
-  //         setImagesPreview(reader.result);
-  //         setBookImages(reader.result);
-  //       }
-  //     };
-
-  //     reader.readAsDataURL(e.target.files[0]);
-  //   } 
-  // };
   return (
     <Fragment>
 

@@ -1,7 +1,9 @@
 import React, {useState,useEffect} from "react";
 import "./singlePage.css";
+import Loader from "../../component/Loader/Loader";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from 'react-router-dom';
+import Helmet from "react-helmet";
 import {
   getSingleBooks
 } from "../../redux/actions/bookAction";
@@ -12,7 +14,7 @@ const SinglePage = (match) => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const [quantity, setQuantity] = useState(1);
-  const { book} = useSelector(
+  const { loading,book} = useSelector(
     (state) => state.singleBook
   );
 
@@ -44,53 +46,62 @@ const SinglePage = (match) => {
   }, [dispatch,id]);
   console.log("bookss",book)
   return (
-    <>
-          <div className="ProductDetails">
-            <div>
-              {
-                book.bookImages && <img src={book.bookImages[0].url} className="CarouselImage" alt={book.name} />
-              }
-          
-            </div>
-
-            <div>
-              <div className="detailsBlock-1">
-                 <h2>{book.name}</h2>
-                 <p>{book.authour}</p>
-                 <p>{book.published}</p>
+        <>
+      {loading ? (
+        <Loader />
+      ) : (
+          <>
+            <Helmet>
+            <title> book details </title>
+            </Helmet>
+            <div className="ProductDetails">
+              <div>
+                {
+                  book.bookImages && <img src={book.bookImages[0].url} className="CarouselImage" alt={book.name} />
+                }
+            
               </div>
-               <div className="detailsBlock-3">
-                <h1>{`₹${book.price}`}</h1>
-                <div className="detailsBlock-3-1">
-                  <div className="detailsBlock-3-1-1">
-                    <button onClick={decreaseQuantity}>-</button>
-                    <input readOnly type="number" value={quantity} />
-                    <button onClick={increaseQuantity}>+</button>
+
+              <div>
+                <div className="detailsBlock-1">
+                  <h2>{book.name}</h2>
+                  <p>{book.authour}</p>
+                  <p>{book.published}</p>
+                </div>
+                <div className="detailsBlock-3">
+                  <h1>{`₹${book.price}`}</h1>
+                  <div className="detailsBlock-3-1">
+                    <div className="detailsBlock-3-1-1">
+                      <button onClick={decreaseQuantity}>-</button>
+                      <input readOnly type="number" value={quantity} />
+                      <button onClick={increaseQuantity}>+</button>
+                    </div>
+                    <button
+                      disabled={book.Stock < 1 ? true : false}
+                      onClick={addToCartHandler}
+                    >
+                      Add to Cart
+                    </button>
                   </div>
-                  <button
-                    disabled={book.Stock < 1 ? true : false}
-                    onClick={addToCartHandler}
-                  >
-                    Add to Cart
-                  </button>
+
+                  <p>
+                    Status:
+                    <b>
+                      {book.stock < 1 ? "Out Of Stock" : "InStock"}
+                    </b>
+                  </p>
                 </div>
 
-                <p>
-                  Status:
-                  <b>
-                    {book.stock < 1 ? "Out Of Stock" : "InStock"}
-                  </b>
-                </p>
-              </div>
 
-
-              <div className="detailsBlock-4">
-                Description : <p>{book.description}</p>
+                <div className="detailsBlock-4">
+                  Description : <p>{book.description}</p>
+                </div>
               </div>
             </div>
-          </div>
-          
-        </>
+            
+          </>
+        )}
+      </>
       )
   
   

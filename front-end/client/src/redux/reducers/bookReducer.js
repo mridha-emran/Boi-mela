@@ -1,16 +1,23 @@
-import{ALL_BOOK_FAIL,ALL_BOOK_SUCCESS,
- SINGLE_BOOK_FAIL,SINGLE_BOOK_SUCCESS,
+import{ALL_BOOK_FAIL,ALL_BOOK_SUCCESS,ALL_BOOK_REQUEST,
+ SINGLE_BOOK_FAIL,SINGLE_BOOK_SUCCESS,SINGLE_BOOK_REQUEST,
 NEW_BOOK_FAIL,NEW_BOOK_SUCCESS,NEW_BOOK_RESET} from '../constants/bookConstants'
 export const booksReducer = (state = { books: [] }, action) => {
   switch (action.type) {
+
+    case ALL_BOOK_REQUEST:
+      return {
+        loading: true,
+        books: [],
+      }
     case ALL_BOOK_SUCCESS:
-      return {      
+      return { 
+        loading: false,     
         books: action.payload.books,
     
       };
-
     case ALL_BOOK_FAIL:
       return {
+        loading: false,
         error: action.payload,
       };
     default:
@@ -20,12 +27,19 @@ export const booksReducer = (state = { books: [] }, action) => {
 
 export const singleBookReducer = (state = { book: {} }, action) => {
   switch (action.type) {
+    case SINGLE_BOOK_REQUEST:
+      return {
+        loading: true,
+        ...state,
+      }
     case SINGLE_BOOK_SUCCESS:
       return {
+        loading: false,
         book: action.payload,
       };
     case SINGLE_BOOK_FAIL:
       return {
+        loading: false,
         error: action.payload,
       };
     default:
