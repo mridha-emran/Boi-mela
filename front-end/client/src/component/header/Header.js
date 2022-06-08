@@ -5,6 +5,7 @@ import logo from "../../images/sans-bg-logo.png";
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import PersonIcon from '@mui/icons-material/Person';
+import SearchIcon from '@mui/icons-material/Search';
 import './hearder.css';
 
 const Header = () => {
@@ -42,6 +43,10 @@ const Header = () => {
                             <li className="nav_item">
                                 <NavLink exact to="/contact"  className="nav_links" onClick={handleClickIcon}>contact</NavLink>
                             </li>
+                            <li className="nav_item">
+                                <NavLink exact to="/search"  className="nav_links" onClick={handleClickIcon}><SearchIcon /></NavLink>
+                            </li>
+
                             <li className="nav_item">
                                 <NavLink exact to="/login"  className="nav_links" onClick={handleClickIcon}><PersonIcon /></NavLink>
                             </li>

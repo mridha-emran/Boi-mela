@@ -25,6 +25,7 @@ import AllBook from '../views/book/allBook/allBook';
 import UpdateOrder from '../views/admin/orderlist/updateOrder/UpdateOrder';
 import Contact from '../component/contact/Contact';
 import UpdatePassword from '../views/user/updatePassword/UpdatePassword';
+import Search from '../views/book/search/Search';
 const MainPage = () => {
   const { user,  isAuthenticat } = useSelector((state) => state.login);
      useEffect(() => {
@@ -36,9 +37,11 @@ const MainPage = () => {
           <Routes>
                  <Route exact path="/" element={<Home />} />
                  <Route exact path="/allbook" element={<AllBook />} />
+                 <Route exact path="/allbook/:keyword" element={<AllBook />} />
                  <Route exact path="/book/:id" element={<SinglePage />} />
                  <Route exact path="/contact" element={<Contact />} />
                  <Route exact path="/login" element={<LoginRegister />} />
+                 <Route exact path="/search" element={<Search />} />
 
 
                   <Route exact path="/user-profil" element={<ProtectedRoute><Profile /></ProtectedRoute>} />

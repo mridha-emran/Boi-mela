@@ -4,14 +4,16 @@ import { useSelector, useDispatch } from "react-redux";
 import Loader from "../../../component/Loader/Loader";
 import {getBook } from "../../../redux/actions/bookAction";
 import AllBookCard from "../../../component/allbookCard/AllBookCard";
+import { useParams } from 'react-router-dom';
 import Helmet from "react-helmet";
 
 const AllBook = () => {
   const dispatch = useDispatch();
    const { loading,books } = useSelector((state) => state.books)
+   const { keyword } = useParams();
   useEffect(() => {  
-    dispatch(getBook());
-  }, [dispatch]);
+    dispatch(getBook(keyword));
+  }, [dispatch,keyword]);
 
   return ( 
     <>
