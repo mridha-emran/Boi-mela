@@ -1,5 +1,5 @@
 const User = require("../models/userModel");
-
+const tokenFanction = require("../utils/tokenFanction");
  const getAllUsers =async (_req,res)=>{
       try{
              const users = await User.find()
@@ -57,10 +57,11 @@ const User = require("../models/userModel");
  }
 
  const updatePassword =async (req,res)=>{
-    //    console.log(req.body.oldPassword)
+       console.log(req.body)
      try{
-          const user = await User.findById(req.user.id).select("+password");    
+          const user = await User.findById(req.user.id).select("+password"); 
           const passwordMatch = await user.comparePassword(req.body.oldPassword);
+          console.log("userup",user)   
       
            if (!passwordMatch) {
                 return  res.status(400).json({
@@ -74,13 +75,15 @@ const User = require("../models/userModel");
                     message: "password does not match",
                 });   
             }
-             user.password = req.body.newPassword;
+            user.password = req.body.newPassword;
+            console.log("userpass",req.body.newPassword) 
             await user.save();
-
             res.status(200).json({
                     success: true,
                     user
-                });     
+                });  
+            
+        //    tokenFanction(user, 201, res)
     }
     catch(err){
         res.status(500).json(err)

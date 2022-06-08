@@ -21,7 +21,7 @@ const cloudinary = require("cloudinary");
               url: myCloud.secure_url,
             }
             });  
-            console.log("user")   
+            // console.log("user")   
             tokenFanction(user, 201, res)
       }
       catch(err){

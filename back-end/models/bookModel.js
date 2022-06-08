@@ -31,6 +31,10 @@ const bookSchema = new mongoose.Schema({
     },   
     }],
 
+    category: {
+    type: String, 
+  },
+
 
   stock: {
     type: Number,

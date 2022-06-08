@@ -20,24 +20,25 @@ const userSchema = new mongoose.Schema({
    userImages:{
       public_id: {
       type: String,
-      required: true,
+    
     },
     url: {
       type: String,
-      required: true,
     },
     },
   role: {
     type: String,
     default: "user",
   },
+
+   category: {
+    type: String,
+  },
+
   createdAt: {
     type: Date,
     default: Date.now,
   },
-
-  resetPasswordToken: String,
-  resetPasswordExpire: Date,
 });
 
 userSchema.pre("save", async function (next) {

@@ -1,38 +1,38 @@
 const Books = require("../models/bookModel");
 const cloudinary = require("cloudinary");
-const addBooks = async(req,res)=>{
+const ApiFeatures = require("../utils/apifeatures");
 
-  try{ 
-   
+const addBooks = async(req,res)=>{
+  try{  
       let  bookImages= [];
 
-  if (typeof req.body.bookImages === "string") {
-    bookImages.push(req.body.bookImages);
-  } else {
-    bookImages = req.body.bookImages;
-  }
-      //  console.log(bookImages)
-  const imagesLinks = [];
+        if (typeof req.body.bookImages === "string") {
+          bookImages.push(req.body.bookImages);
+        } else {
+          bookImages = req.body.bookImages;
+        }
+        //  console.log(bookImages)
 
-  // console.log(imagesLinks)
-  for (let i = 0; i <  bookImages.length; i++) {
-    const result = await cloudinary.v2.uploader.upload(bookImages[i], {
-      folder: "bookImages",
-    });
+      const imagesLinks = [];
+
+      // console.log(imagesLinks)
+        for (let i = 0; i <  bookImages.length; i++) {
+          const result = await cloudinary.v2.uploader.upload(bookImages[i], {
+            folder: "bookImages",
+          });
       
-    // console.log("rr",result)
-    imagesLinks.push({
-      public_id: result.public_id,
-      url: result.secure_url,
-    });
+      // console.log("rr",result)
+      imagesLinks.push({
+        public_id: result.public_id,
+        url: result.secure_url,
+      });
   }
 
   req.body.bookImages = imagesLinks;
-  // console.log("ling",imagesLinks)
-  // req.body.user = req.user.id;
-  // console.log("raja",req.user.id)
+  // console.log("ling",imagesLinks);
+  // console.log("userID",req.user.id)
    const books = await Books.create(req.body);
-     console.log(books)
+    //  console.log(books)
               res.status(201).json({
                   success: true,
                   books,
@@ -45,9 +45,10 @@ const addBooks = async(req,res)=>{
   
 }
 
-const getAllbooks  = async (_req,res)=>{
-      try{     
-         const books = await Books.find();
+const getAllbooks  = async (req,res)=>{
+      try{   
+        const apiFeature= new ApiFeatures(Books.find(),req.query).search()
+         const books = await apiFeature.query;
           res.status(200).json({
             success: true,
             books,
