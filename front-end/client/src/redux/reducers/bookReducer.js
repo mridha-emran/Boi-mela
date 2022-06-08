@@ -1,6 +1,7 @@
 import{ALL_BOOK_FAIL,ALL_BOOK_SUCCESS,ALL_BOOK_REQUEST,
  SINGLE_BOOK_FAIL,SINGLE_BOOK_SUCCESS,SINGLE_BOOK_REQUEST,
 NEW_BOOK_FAIL,NEW_BOOK_SUCCESS,NEW_BOOK_RESET} from '../constants/bookConstants'
+
 export const booksReducer = (state = { books: [] }, action) => {
   switch (action.type) {
 
@@ -13,7 +14,8 @@ export const booksReducer = (state = { books: [] }, action) => {
       return { 
         loading: false,     
         books: action.payload.books,
-    
+        resultPerPage: action.payload.resultPerPage,
+        productsCount: action.payload.productsCount,
       };
     case ALL_BOOK_FAIL:
       return {
