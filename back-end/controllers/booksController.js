@@ -47,11 +47,16 @@ const addBooks = async(req,res)=>{
 
 const getAllbooks  = async (req,res)=>{
       try{   
-        const apiFeature= new ApiFeatures(Books.find(),req.query).search()
-         const books = await apiFeature.query;
+        const apiFeature= new ApiFeatures(Books.find(),req.query).search().filter()
+          const resultPerPage = 8;
+          const productsCount = await Books.countDocuments();
+          apiFeature.pagination(resultPerPage);
+          const books = await apiFeature.query;
           res.status(200).json({
             success: true,
             books,
+            resultPerPage,
+            productsCount
           });     
     }
     catch(err){
