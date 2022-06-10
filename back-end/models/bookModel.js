@@ -40,6 +40,21 @@ const bookSchema = new mongoose.Schema({
     type: Number,
 
   },
+
+  reviews: [
+    {
+      user: {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",       
+      },
+      name: {
+        type: String,
+      },
+      comment: {
+        type: String,  
+      },
+    },
+  ],
   
   createdAt: {
     type: Date,

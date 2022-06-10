@@ -3,6 +3,7 @@ const cloudinary = require("cloudinary");
 const ApiFeatures = require("../utils/apifeatures");
 
 const addBooks = async(req,res)=>{
+  //  console.log(req.body)
   try{  
       let  bookImages= [];
 
@@ -95,7 +96,7 @@ const getAllbooks  = async (req,res)=>{
  }
 
  const deleteBooks =async (req,res)=>{
-    console.log(req.params.id)
+    // console.log(req.params.id)
       try{
          let book = await Books.findById(req.params.id);
            if (!book) {
@@ -136,11 +137,55 @@ const getSingleBooks  =async (req,res)=>{
     }
  }
 
+const createBookstReview =async(req,res)=>{
+    const { comment, productId } = req.body;
+    try{
+         const review = {
+          user: req.user._id,
+          name: req.user.name,
+          comment,
+          };
+         const product = await Books.findById(productId);
+
+          const isReviewed = product.reviews.find(
+            (rev) => rev.user.toString() === req.user._id.toString()
+          );
+
+         if (isReviewed) {
+              product.reviews.forEach((rev) => {
+                if (rev.user.toString() === req.user._id.toString())
+                    (rev.comment = comment);
+                });
+
+              } else {
+                product.reviews.push(review);
+              }
+
+          await product.save({ validateBeforeSave: false });
+
+          res.status(200).json({
+          success: true,
+          });
+      }
+          catch(err){
+          res.status(500).json(err)
+       }
+    }
+
+  //  const deleteReview = async =()=>{
+  //    try{
+
+  //    }
+  //    catch(err){
+  //      res.status(500).json(err)
+  //    }
+  //  } 
  
  module.exports ={
    addBooks,
   getAllbooks,
   updateBooks,
   deleteBooks,
-  getSingleBooks
+  getSingleBooks,
+  createBookstReview
  }
