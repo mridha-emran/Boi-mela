@@ -1,8 +1,8 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { addBooktReducer, booksReducer, singleBookReducer } from "./reducers/bookReducer";
-import { loginReducer,registerReducer,singleUserReducer,logoutReducer, profileUpdateReducer, allUsersReducer } from "./reducers/userReducer";
+import { addBooktReducer, booksReducer, newReviewReducer, singleBookReducer } from "./reducers/bookReducer";
+import { loginReducer,registerReducer,profileUpdateReducer, allUsersReducer } from "./reducers/userReducer";
 import { cartReducer } from "./reducers/cartReducer";
 import { newOrderReducer,allOrdersReducer, orderReducer,orderDetailsReducer } from "./reducers/orderReducer";
 
@@ -17,12 +17,13 @@ const reducer = combineReducers({
   //  logout:logoutReducer,
    updateProfile:profileUpdateReducer,
    cart:cartReducer,
-    newOrder: newOrderReducer,
-    allOrders: allOrdersReducer,
-    allUsers: allUsersReducer,
-     addBooks: addBooktReducer,
-      order: orderReducer,
-       orderDetails: orderDetailsReducer,
+   newOrder: newOrderReducer,
+   allOrders: allOrdersReducer,
+   allUsers: allUsersReducer,
+   addBooks: addBooktReducer,
+   order: orderReducer,
+   orderDetails: orderDetailsReducer,
+   newReview: newReviewReducer,
 });
 let initialState = {
      cart: {

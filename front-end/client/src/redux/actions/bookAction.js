@@ -1,7 +1,8 @@
 import axios from "axios";
 import{ALL_BOOK_FAIL,ALL_BOOK_SUCCESS,ALL_BOOK_REQUEST,
-SINGLE_BOOK_FAIL,SINGLE_BOOK_SUCCESS,SINGLE_BOOK_REQUEST,
-  NEW_BOOK_SUCCESS,NEW_BOOK_FAIL,} from '../constants/bookConstants';
+      SINGLE_BOOK_FAIL,SINGLE_BOOK_SUCCESS,SINGLE_BOOK_REQUEST,
+      NEW_BOOK_SUCCESS,NEW_BOOK_FAIL,  
+      NEW_REVIEW_REQUEST,NEW_REVIEW_SUCCESS,NEW_REVIEW_FAIL} from '../constants/bookConstants';
 
 export const getBook =(keyword = "",currentPage = 1,category) =>
   async (dispatch) => {
@@ -50,7 +51,6 @@ export const addBook = (productData) => async (dispatch) => {
       `/api/books/new`,
       productData,
     );
-
     dispatch({
       type: NEW_BOOK_SUCCESS,
       payload: data,
@@ -58,6 +58,23 @@ export const addBook = (productData) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: NEW_BOOK_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+
+export const newReview = (reviewData) => async (dispatch) => {
+  try {
+    dispatch({ type: NEW_REVIEW_REQUEST });  
+     const { data } = await axios.put(`/api/reviews`, reviewData);
+    dispatch({
+      type: NEW_REVIEW_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: NEW_REVIEW_FAIL,
       payload: error.response.data.message,
     });
   }

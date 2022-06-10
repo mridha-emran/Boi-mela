@@ -19,6 +19,7 @@ const AddBook = ({ history }) => {
   const [price, setPrice] = useState(0);
   const [description, setDescription] = useState("");
   const [stock, setStock] = useState(0);
+  const [ category, setCategory] = useState("");
   const [bookImages, setBookImages] = useState();
   const [imagesPreview, setImagesPreview] = useState([]);
 
@@ -42,6 +43,7 @@ const AddBook = ({ history }) => {
     myForm.set("price", price);
     myForm.set("description", description);
     myForm.set("stock", stock);
+    myForm.set("category", category);
     myForm.set("bookImages", bookImages);
     
     dispatch(addBook(myForm));
@@ -135,6 +137,15 @@ const AddBook = ({ history }) => {
               />
             </div>
 
+            <div>
+              <input
+                type="text"
+                placeholder="category"
+                required
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              />
+            </div>
             <div id="createProductFormFile">
     
               <input

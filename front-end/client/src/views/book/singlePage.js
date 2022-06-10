@@ -4,52 +4,74 @@ import Loader from "../../component/Loader/Loader";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from 'react-router-dom';
 import Helmet from "react-helmet";
-import {
-  getSingleBooks
-} from "../../redux/actions/bookAction";
-
+import {getSingleBooks,newReview} from "../../redux/actions/bookAction";
+import { Dialog,DialogActions,DialogContent,DialogTitle,Button,} from "@material-ui/core";
 import { addItemsToCart } from "../../redux/actions/cartAction";
+import { NEW_REVIEW_RESET } from "../../redux/constants/bookConstants";
+import ReviewCard from "../../component/ReviewCard/ReviewCard";
 
 const SinglePage = (match) => {
   const dispatch = useDispatch();
   const { id } = useParams();
+
   const [quantity, setQuantity] = useState(1);
+  const [open, setOpen] = useState(false);
+  const [comment, setComment] = useState("");
+
   const { loading,book} = useSelector(
-    (state) => state.singleBook
+     (state) => state.singleBook
+  );
+
+  const { success} = useSelector(
+       (state) => state.newReview
   );
 
   
   const increaseQuantity = () => {
     if (book.stock <= quantity) return;
 
-    const qty = quantity + 1;
-    setQuantity(qty);
-  };
+      const qty = quantity + 1;
+      setQuantity(qty);
+    };
 
   const decreaseQuantity = () => {
     if (1 >= quantity) return;
+      const qty = quantity - 1;
+      setQuantity(qty);
+    };
 
-    const qty = quantity - 1;
-    setQuantity(qty);
-  };
+    const addToCartHandler = () => {
+      dispatch(addItemsToCart(id, quantity));
+    // console.log("good")  
+    };
 
-  const addToCartHandler = () => {
-    dispatch(addItemsToCart(id, quantity));
-    console.log("good")
-    
-  };
+    const submitReviewToggle = () => {
+      open ? setOpen(false) : setOpen(true);
+    };
+
+    const reviewSubmitHandler = () => {
+      const myForm = new FormData();
+      myForm.set("comment", comment);
+      myForm.set("productId",id);
+      dispatch(newReview(myForm));
+      setOpen(false);
+    };
  
   // console.log(book)
 
   useEffect(() => {
-    dispatch(getSingleBooks(id));
-  }, [dispatch,id]);
-  console.log("bookss",book)
+      if (success) {
+      alert("Review Submitted Successfully");
+      dispatch({ type: NEW_REVIEW_RESET });
+    }
+      dispatch(getSingleBooks(id));
+    }, [dispatch,id,success]);
+  // console.log("bookss",book)
   return (
-        <>
-      {loading ? (
+      <>
+        {loading ? (
         <Loader />
-      ) : (
+       ) : (
           <>
             <Helmet>
             <title> book details </title>
@@ -96,12 +118,51 @@ const SinglePage = (match) => {
                 <div className="detailsBlock-4">
                   Description : <p>{book.description}</p>
                 </div>
+                <button  onClick={submitReviewToggle}className="submitReview">
+                   Submit Review
+                </button>
               </div>
             </div>
-            
-          </>
-        )}
-      </>
+            <h3 className="reviewsHeading">REVIEWS</h3>
+              <Dialog
+                aria-labelledby="simple-dialog-title"
+                open={open}
+                onClose={submitReviewToggle}
+              >
+                <DialogTitle>Submit Review</DialogTitle>
+                <DialogContent className="submitDialog">
+
+                  <textarea
+                  className="submitDialogTextArea"
+                  cols="30"
+                  rows="5"
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  ></textarea>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={submitReviewToggle} color="secondary">
+                    Cancel
+                  </Button>
+                  <Button onClick={reviewSubmitHandler} color="primary">
+                    Submit
+                  </Button>
+              </DialogActions>
+              </Dialog>
+
+                {book.reviews && book.reviews[0] ? (
+                <div className="reviews">
+                  {book.reviews &&
+                  book.reviews.map((review) => (
+                  <ReviewCard key={review._id} review={review} />
+                  ))}
+                </div>
+              ) : (
+                <p className="noReviews">No Reviews Yet</p>
+              )}
+            </>
+          )}
+        </>
       )
   
   
