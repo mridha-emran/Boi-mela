@@ -1,8 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
-
+//check Authenticated User by jwt token
  const userAuthenticated =async (req,res,next)=>{
-  //  console.log(req.cookies)
      try{
           const { token } = req.cookies;
         if (!token) {
@@ -22,11 +21,11 @@ const User = require("../models/userModel");
         res.status(500).json(err)
     }
  }
- 
+ //check  User role 
  const isAuthorizeAdmin = async (req, res, next) => {
     try {
         const user = await User.findById({_id: req.user.id})
-        // console.log(user)
+      
         if(user.role === "admin") {
             next()
         }else{

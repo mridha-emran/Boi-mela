@@ -1,5 +1,6 @@
 const User = require("../models/userModel");
-const tokenFanction = require("../utils/tokenFanction");
+
+ // Get all users(admin)
  const getAllUsers =async (_req,res)=>{
       try{
              const users = await User.find()
@@ -13,6 +14,7 @@ const tokenFanction = require("../utils/tokenFanction");
     }
  }
 
+// Get single user 
   const getSingleUser =async (req,res)=>{
       try{
             const user = await User.findById(req.user.id);
@@ -31,13 +33,13 @@ const tokenFanction = require("../utils/tokenFanction");
         res.status(500).json(err)
     }
  }
+ // update user 
 
  const updateUser=async (req,res)=>{
         const newUserData = {
             name: req.body.name,
             email: req.body.email,
         };
-        console.log(newUserData)
         try{   
                              
             const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
@@ -45,7 +47,6 @@ const tokenFanction = require("../utils/tokenFanction");
                         runValidators: true,
                         useFindAndModify: false,
             });
-            // console.log(user)
             res.status(200).json({
                     success: true,
                     user
@@ -55,7 +56,7 @@ const tokenFanction = require("../utils/tokenFanction");
         res.status(500).json(err)
     }
  }
-
+ // update user password
  const updatePassword =async (req,res)=>{
        console.log(req.body)
      try{
@@ -82,14 +83,12 @@ const tokenFanction = require("../utils/tokenFanction");
                     success: true,
                     user
                 });  
-            
-        //    tokenFanction(user, 201, res)
     }
     catch(err){
         res.status(500).json(err)
     }
  }
-
+ // delete user 
  const deleteUser =async (req,res)=>{
       try{
             const user = await User.findById(req.user.id);

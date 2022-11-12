@@ -3,7 +3,7 @@ class ApiFeatures {
     this.query = query;
     this.queryStr = queryStr;
   }
-
+    // search method create to search book()
     search() {
       const keyword = this.queryStr.keyword
       ? 
@@ -27,15 +27,14 @@ class ApiFeatures {
     this.query = this.query.find({ ...keyword });
     return this;
   }
-
+ // filter method create to filter book()
   filter() {
     const queryCopy = { ...this.queryStr };
-    // console.log("32",queryCopy)
+   
     //   Removing some fields for category
     const removeFields = ["keyword", "page"];
 
     removeFields.forEach((key) => delete queryCopy[key]);
-    // console.log(queryCopy)
     this.query= this.query.find(queryCopy);
     return this
 }

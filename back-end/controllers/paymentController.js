@@ -1,7 +1,7 @@
 const Payment = require("../models/paymentModel");
-
+ // update payment
 const payment = async(req,res)=>{
-      // console.log(req.body)
+   
       try{
            const payment= await Payment.create(req.body);        
               res.status(201).json({
