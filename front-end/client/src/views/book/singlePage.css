@@ -2,7 +2,7 @@
   background-color: rgb(255, 255, 255);
   width: 100vw;
   max-width: 100%;
-  padding: 6vmax;
+  padding: 2vmax;
   box-sizing: border-box;
   display: flex;
 }
@@ -25,6 +25,90 @@
 .CarouselImage {
   width: 20vmax;
 }
+
+
+
+
+@keyframes initAnimation {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(-30deg);
+  }
+}
+
+.book {
+   width: 20vmax;
+  height: 30vmax;
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateY(-30deg);
+  transition: 1s ease;
+  animation: 1s ease 0s 1 initAnimation;
+}
+
+.book:hover {
+  transform: rotateY(0deg);
+}
+
+.book > :first-child {
+  position: absolute;
+  top: 6vmax;
+  left: 8vmax;
+  width: 20vmax;
+  height: 30vmax;
+  transform: translateZ(25px);
+  border-radius: 0 2px 2px 0;
+
+}
+
+.book::before {
+  position: absolute;
+  content: ' ';
+  left: 8vmax;
+  top: 6.5vmax;
+  width: 48px;
+  height: 28.5vmax;
+  transform: translateX(17.7vmax) rotateY(90deg);
+  background: linear-gradient(90deg, 
+    #fff 0%,
+    #f9f9f9 5%,
+    #fff 10%,
+    #f9f9f9 15%,
+    #fff 20%,
+    #f9f9f9 25%,
+    #fff 30%,
+    #f9f9f9 35%,
+    #fff 40%,
+    #f9f9f9 45%,
+    #fff 50%,
+    #f9f9f9 55%,
+    #fff 60%,
+    #f9f9f9 65%,
+    #fff 70%,
+    #f9f9f9 75%,
+    #fff 80%,
+    #f9f9f9 85%,
+    #fff 90%,
+    #f9f9f9 95%,
+    #fff 100%
+    );
+}
+
+.book::after {
+  position: absolute;
+  top: 6vmax;
+  left: 8vmax;
+  content: ' ';
+  width: 20vmax;
+  height: 30vmax;
+  transform: translateZ(-25px);
+  background-color: #929499;
+  border-radius: 0 2px 2px 0;
+ 
+}
+
 
 .detailsBlock-1 > h2 {
   color: rgb(54, 54, 54);
@@ -167,4 +251,35 @@
   font: 400 1.3vmax "Gill Sans";
   text-align: center;
   color: rgba(0, 0, 0, 0.548);
+}
+
+@media screen and (max-width: 600px) {
+
+  .ProductDetails  {
+    display: flex;
+    flex-direction: column;
+  }
+  .book {
+   width: 35vmax;
+   height: 48vmax;
+   
+}
+  .book > :first-child {
+  left: 8vmax;
+  width: 33vmax;
+  height: 42vmax;
+}
+
+.book::before {
+  top: 7vmax;
+  height: 40.5vmax;
+  transform: translateX(29vmax) rotateY(90deg);
+}
+.book::after {
+ 
+  width: 33vmax;
+  height: 42vmax;
+
+}
+
 }

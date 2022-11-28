@@ -35,7 +35,7 @@ const Home = () => {
           <div className="container">
 
              {books &&
-              books.slice(0, 8).map((book) => (
+              books.slice(0, 5).map((book) => (
                 <BookCard book={book} />
                 ))}
                 {/* <BookCard book={book} /> */}

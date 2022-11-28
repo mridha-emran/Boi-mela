@@ -13,7 +13,6 @@ export const getBook =(keyword = "",currentPage = 1,category) =>
              link = `/api/books?keyword=${keyword}&page=${currentPage}&category=${category}`
         }
         const { data } = await axios.get(link);
-        // console.log(data)
       dispatch({
         type: ALL_BOOK_SUCCESS,
         payload: data,
@@ -27,11 +26,9 @@ export const getBook =(keyword = "",currentPage = 1,category) =>
   };
 
   export const getSingleBooks = (id) => async (dispatch) => {
-    // console.log("my test" ,id)
   try {
      dispatch({ type:SINGLE_BOOK_REQUEST });
     const { data } = await axios.get(`/api/books/${id}`);
-        // console.log("ss",data)
     dispatch({
       type: SINGLE_BOOK_SUCCESS,
       payload: data.book,
@@ -45,7 +42,6 @@ export const getBook =(keyword = "",currentPage = 1,category) =>
 };
 
 export const addBook = (productData) => async (dispatch) => {
-  // console.log(productData)
   try {
     const { data } = await axios.post(
       `/api/books/new`,

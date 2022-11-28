@@ -76,14 +76,13 @@ const SinglePage = (match) => {
             <Helmet>
             <title> book details </title>
             </Helmet>
-            <div className="ProductDetails">
-              <div>
+            <div className="ProductDetails">    
+            <div className="book">
                 {
                   book.bookImages && <img src={book.bookImages[0].url} className="CarouselImage" alt={book.name} />
                 }
             
               </div>
-
               <div>
                 <div className="detailsBlock-1">
                   <h2>{book.name}</h2>
