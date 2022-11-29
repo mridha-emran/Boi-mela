@@ -64,7 +64,7 @@ const Cart = () => {
               <p>Quantity</p>
               <p>Subtotal</p>
             </div>
-
+            { console.log("67cr",cartItems)}
             {cartItems &&
               cartItems.map((item) => (
                 <div className="cartContainer" key={item.book}>

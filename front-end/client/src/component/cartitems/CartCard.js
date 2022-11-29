@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const CartCard = ({ item, deleteCartItems }) => {
   return (
     <div className="CartItemCard">
-      {/* <img src={item.image} alt="ssa" /> */}
+      <img src={item.image} alt="ssa" />
       <div>
         <Link to={`/book/${item.book}`}>{item.name}</Link>
         <span>{`Price: ₹${item.price}`}</span>
